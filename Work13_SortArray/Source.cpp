@@ -5,20 +5,20 @@ int* createArr(int size);
 void printArr(int arr[], int size);
 void printDuplicates(int ar[], int size);
 void swapElems(int* x, int* y);
-void sortFindMin(int ar[], int size);
+int* sortFindMin(int ar[], int size);
 
 int main() {
 	setlocale(LC_ALL, "rus");
+	cout << "Введите размер массива: ";
 	int size;
 	cin >> size;
 	int* ar = createArr(size);
 	printArr(ar, size);
 	cout << " " << endl;
-	//ищем повторения
 	printDuplicates(ar, size);
+	cout << " " << endl;
 	sortFindMin(ar, size);
-
-
+	printArr(ar, size);
 	delete[] ar;
 	return 0;
 }
@@ -41,8 +41,6 @@ void printArr(int arr[], int size)
 	}
 }
 
-//функция, которая ищет повторения элементов массива и выводить номера совпадений в консоль
-
 void printDuplicates(int ar[], int size)
 {
 	int temp;
@@ -62,42 +60,15 @@ void swapElems(int* x, int* y)
 	*y = t;
 }
 
-//сортировка массива
-
-//void sortFindMin(int ar[], int size)
-//{
-//	int temp;
-//	for (int i = 0; i < size; i++) {
-//		temp = ar[i];
-//		for (int j = i + 1; j < size; j++) {
-//			if (temp > ar[j]) {
-//				temp = ar[j];
-//				ar[j] = ar[i];
-//				ar[i] = temp;
-//			}
-//		}
-//	}
-//	for(int i = 0; i < size; i++) {
-//		cout << "Элемент массива [" << i << "] равен = " << ar[i] << endl;
-//	}
-//}
-
-void sortFindMin(int ar[], int size)
+int* sortFindMin(int ar[], int size)
 {
 	int temp;
 	for (int i = 0; i < size; i++) {
-		temp = ar[i];
-		int min = ar[0], iMin = 0;
-		for (int j = i + 1; j < size; j++) {
-			if (ar[j] < min) {
-				iMin = j;
+		for (int j = 0; j < size-1; j++) {
+			if (ar[j] > ar[j + 1]) {
+				swapElems(&ar[j], &ar[j+1]);
 			}
 		}
-		if (ar[i] > ar[iMin]) {
-			swapElems(&ar[i], &ar[iMin]);
-		}
 	}
-	for (int i = 0; i < size; i++) {
-		cout << "Элемент массива [" << i << "] равен = " << ar[i] << endl;
-	}
+	return ar;
 }
